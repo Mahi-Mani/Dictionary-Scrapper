@@ -5,29 +5,41 @@ var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 var PORT = 8080;
+var exphbs = require("express-handlebars");
+var app = express();
+app.use(express.static("public"));
 var db = require("./models");
 
-db.on("error", function(error) {
-  console.log("Database Error:", error);
-});
-
-var app = express();
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static("public"));
+app.engine("handlebars", exphbs({ defaultLayout: "main" }));
+app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
 mongoose.connect("mongodb://localhost/dictionaryAPI", { useNewUrlParser: true });
 
-// app.get("/", function(req, res) {
-//     res.render("index", obj);
-//   });
+// Main route to retrive all from Dictionary
+app.get("/dictionary", function(req, res) {
+    db.Dictionary.find({})
+    .then(function(dbDictionary){
+        // res.render("index", dbDictionary);
+        var obj = {
+            result: dbDictionary
+        }
+        // res.json(obj);
+        console.log(obj);
+        res.render("index", obj);
+    })
+    .catch(function(err){
+        console.log(err);
+    })
+  });
 
 // Main route (simple Hello World Message)
-app.get("/", function(req, res) {
-    res.send("Hello world");
-  });
+// app.get("/", function(req, res) {
+//     res.send("Hello world");
+//   });
 
 //   Get all scraped data
   app.get("/all", function(req, res){
@@ -43,9 +55,9 @@ app.get("/", function(req, res) {
 app.get("/scrape", function(req, res){
 
     // To call the function of all pages in website
-    for(var i=1; i<=117; i++){
-    createRequest(i);
-    }
+    // for(var i=1; i<=117; i++){
+    createRequest(1);
+    // }
 
     function createRequest(num){
         var url;
@@ -53,6 +65,7 @@ app.get("/scrape", function(req, res){
         url = "https://www.dictionaryofobscuresorrows.com/page/" + num; 
         else
         url = "https://www.dictionaryofobscuresorrows.com/";
+        console.log(url);
 
     axios.get(url).then(function(response){
       var $ = cheerio.load(response.data);

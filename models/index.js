@@ -1,6 +1,6 @@
 // Exporting an object containing all of our models
 
 module.exports = {
-  Dictionary: require("./Article"),
+  Dictionary: require("./Dictionary"),
   Note: require("./Note")
 };
