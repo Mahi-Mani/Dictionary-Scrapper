@@ -63,6 +63,31 @@ app.get("/dictionary/:id", function(req, res){
 //     res.send("Hello world");
 //   });
 
+// To delete value from collection
+app.put("/dictionary/del/:id", function(req, res){
+    db.Dictionary.findOne({
+        _id: req.params.id
+    }).remove().exec();
+    res.send("Deleted");
+})
+
+// To save
+app.put("/dictionary/save/:id", function(req, res){
+    db.Dictionary.findOneAndUpdate({_id: req.params.id}, {saved: true}).then(function(data){
+        res.send("Saved");
+    })
+})
+
+
+
+// To delete all retrieved data
+app.put("/dictionary/del/all", function(req, res){
+    db.Dictionary.deleteMany()
+        .then(function () {
+            return db.Note.deleteMany({});
+        })
+})
+
 //   Get all scraped data
 app.get("/all", function (req, res) {
     db.scrapedData.find({}, function (err, data) {

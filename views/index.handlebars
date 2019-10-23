@@ -10,6 +10,7 @@
             <p>Wooo HOOOOO!</p>
             <a class="btn btn-danger btn-lg" role="button" id="scrape-btn">Scrape</a>
             <a class="btn btn-success btn-lg" role="button" id="view-btn" href="/dictionary">View</a>
+            {{!-- <button type="button" class="btn btn-danger" id="del-all-btn">Delete All</button> --}}
         </div>
     </div>
     <div class="col-md-2"></div>
@@ -21,14 +22,16 @@
     <div class="col-md-8">
         {{!-- Cards --}}
         {{#each result}}
-        <div class="card d-inline-flex flex-row bd-highlight mb-3 text-wrap" style="width: 18rem;">
+        <div class="card d-inline-flex flex-row bd-highlight mb-3 text-wrap">
             <div class="card-body">
                 <h5 class="card-title text-wrap">{{title}}</h5>
-                <p class="card-text text-wrap">{{link}}</p>
+                <p class="card-text text-wrap" style="word-wrap: break-word">{{link}}</p>
                 <p class="card-text text-wrap">{{content}}</p>
-                <button type="button" class="btn btn-primary" id="addNote-btn" data-id={{_id}}>Click to add a
+                <button type="button" class="btn btn-success" id="addNote-btn" data-id={{_id}}>Click to add a
                     Note</button>
                 <button type="button" class="btn btn-primary" id="viewNote-btn" data-id={{_id}}>View note</button>
+                <button type="button" class="btn btn-warning" id="saveNote-btn" data-id={{_id}}>Save</button>
+                <button type="button" class="btn btn-danger" id="del-btn" data-id={{_id}}>Delete</button>
             </div>
         </div>
 

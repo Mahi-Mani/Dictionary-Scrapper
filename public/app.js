@@ -67,6 +67,51 @@ $(document).ready(function(){
 
 }
 
+// To delete from collection
+$(document).on("click", "#del-btn", function(event){
+    event.preventDefault();
+    console.log("Inside delete button function");
+    var id = $(this).data("id");
+    $.ajax("/dictionary/del/" + id, {
+        type: "PUT"
+    }).then(function(data){
+        // console.log(data);
+        console.log("Delete");
+        location.reload();
+    })
+})
+
+// To delete all scraped details
+$("#del-all-btn").on("click", function(event){
+    event.preventDefault();
+    console.log("Inside all delete button function");
+    $.ajax("/dictionary/del/all", {
+        type: "PUT"
+    }).then(function(data){
+        console.log(data);
+        // console.log("Delete");
+        // location.reload();
+    })
+})
+
+    // Save
+    $(document).on("click", "#saveNote-btn", function(event){
+        event.preventDefault();
+        console.log("inside save note button");
+        var id = $(this).data("id");
+        save(id);
+    })
+
+    function save(id){
+        $.ajax("/dictionary/save/" + id, {
+            type: "PUT"
+        }).then(function(data){
+            console.log(data);
+            console.log("Saved");
+            // location.reload();
+        })
+    }
+
 
     // To view all scraped values
     // $("#view-btn").on("click", function(event){
