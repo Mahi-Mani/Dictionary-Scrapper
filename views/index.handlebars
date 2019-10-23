@@ -37,10 +37,11 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         {{#if title}}
-                        <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+                        <h5 class="modal-title" id="exampleModalLabel"+{{_id}}>{{title}}</h5>
                         {{/if}}
                         {{#else}}
                         <h5 class="modal-title" id="exampleModalLabel">Leave Your Note Here!</h5>
+                        
                         {{/else}}
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
@@ -49,6 +50,7 @@
                     <div class="modal-body">
                         <input class="form-control" type="text" placeholder="Enter your name"data-value={{_id}}><br>
                         <textarea class="form-control note text-dark" rows="2" data-text={{_id}}></textarea>
+                        <h5 class="modal-title" id="exampleModalLabel1"+{{_id}}>Leave Your Note Here!</h5>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal"id={{_id}} >Add Note</button>

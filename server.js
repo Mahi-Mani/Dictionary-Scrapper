@@ -104,12 +104,22 @@ app.get("/scrape", function (req, res) {
                 }
 
                 //   Create a new dictionary collection using scrapped data
-                db.Dictionary.create(result).then(function (dbDictionary) {
-                    console.log(dbDictionary);
-                }).catch(function (err) {
-                    console.log(err);
+                db.Dictionary.findOne({
+                    title: title 
+                }, function (err, existingTitle){
+                    if(!(existingTitle)){
+                    db.Dictionary.create(result).then(function (dbDictionary) {
+                        console.log(dbDictionary);
+                    }).catch(function (err) {
+                        console.log(err);
+                    })
+                }
+                else{
+                    console.log("Already exists");
+                }
                 })
-
+            
+                
             })
             res.send("Scraped!");
         })
