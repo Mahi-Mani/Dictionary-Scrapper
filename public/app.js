@@ -12,13 +12,24 @@ $(document).ready(function(){
         })
     })
 
-    // Add a note
-    // $("#addNote-btn").on("click", function(event){
+    // Add a note button triggering a modal
         $(document).on("click", "#addNote-btn", function(event){
         // event.preventDefault();
+        var id = $(this).data("id");
         console.log("Inside add a note button");
-        $(".modal").modal("toggle");
+        $("#" + id).modal("toggle");
+        console.log("Add note button id : " + id);
+        addNote(id);
     })
+
+    // Function to add a note
+    function addNote(id){
+        $("#" + id).on("click", function(event){
+            event.preventDefault();
+            console.log("add note clicked with id : " + id);
+        })
+    }
+
 
     // To view all scraped values
     // $("#view-btn").on("click", function(event){
