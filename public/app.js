@@ -22,6 +22,11 @@ $(document).ready(function(){
         addNote(id);
     })
 
+    // View note commented by user
+    $(document).on("click", "#viewNote-btn", function(event){
+        event.preventDefault();
+    })
+
     // Function to add a note post notes to collections
     function addNote(id){
         $("#" + id).on("click", function(event){
@@ -43,6 +48,11 @@ $(document).ready(function(){
             })
         })
     }
+
+    // Route to get notes commented by user
+    $.ajax("/dictionary/" + id, {
+        type: "GET"
+    })
 
 
     // To view all scraped values
