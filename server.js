@@ -49,6 +49,15 @@ app.post("/dictionary/:id", function (req, res) {
         })
 })
 
+// Get route to get notes commented by user
+app.get("/dictionary/:id", function(req, res){
+    db.Dictionary.findOne({_id: req.params.id})
+    .populate("note")
+    .then(function(dbDictionary){
+        res.json(dbDictionary);
+    })
+})
+
 // Main route (simple Hello World Message)
 // app.get("/", function(req, res) {
 //     res.send("Hello world");

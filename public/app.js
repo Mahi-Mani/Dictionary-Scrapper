@@ -25,6 +25,9 @@ $(document).ready(function(){
     // View note commented by user
     $(document).on("click", "#viewNote-btn", function(event){
         event.preventDefault();
+        console.log("inside view note button");
+        var id = $(this).data("id");
+        viewNote(id);
     })
 
     // Function to add a note post notes to collections
@@ -50,9 +53,16 @@ $(document).ready(function(){
     }
 
     // Route to get notes commented by user
+    function viewNote(id){
+
     $.ajax("/dictionary/" + id, {
         type: "GET"
+    }).then(function(data){
+        console.log(data);
+        $("#" + id).modal("toggle");
     })
+
+}
 
 
     // To view all scraped values
