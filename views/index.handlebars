@@ -15,7 +15,6 @@
     <div class="col-md-2"></div>
 </div>
 
-<button type="button" class="btn btn-primary" id="addNote-btn">Click to add a Note</button>
 {{!-- Row 2 --}}
 <div class="row">
     <div class="col-md-2"></div>
@@ -42,6 +41,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
+                        <input class="form-control" type="text" placeholder="Enter your name"data-value={{_id}}><br>
                         <textarea class="form-control note text-dark" rows="2" data-text={{_id}}></textarea>
                     </div>
                     <div class="modal-footer">

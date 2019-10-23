@@ -20,21 +20,34 @@ app.set("view engine", "handlebars");
 mongoose.connect("mongodb://localhost/dictionaryAPI", { useNewUrlParser: true });
 
 // Main route to retrive all from Dictionary
-app.get("/dictionary", function(req, res) {
+app.get("/dictionary", function (req, res) {
     db.Dictionary.find({})
-    .then(function(dbDictionary){
-        // res.render("index", dbDictionary);
-        var obj = {
-            result: dbDictionary
-        }
-        // res.json(obj);
-        console.log(obj);
-        res.render("index", obj);
-    })
-    .catch(function(err){
-        console.log(err);
-    })
-  });
+        .then(function (dbDictionary) {
+            // res.render("index", dbDictionary);
+            var obj = {
+                result: dbDictionary
+            }
+            // res.json(obj);
+            console.log(obj);
+            res.render("index", obj);
+        })
+        .catch(function (err) {
+            console.log(err);
+        })
+});
+
+//   Post a new value to Dictionary along with it's associated note and note collections
+app.post("/dictionary/:id", function (req, res) {
+    db.Note.create(req.body)
+        .then(function (dbNote) {
+            return db.Dictionary.findOneAndUpdate({ _id: req.params.id }, { note: dbNote._id }, { new: true });
+        })
+        .then(function (dbDictionary) {
+            res.json(dbDictionary);
+        }).catch(function (err) {
+            res.json(err);
+        })
+})
 
 // Main route (simple Hello World Message)
 // app.get("/", function(req, res) {
@@ -42,60 +55,60 @@ app.get("/dictionary", function(req, res) {
 //   });
 
 //   Get all scraped data
-  app.get("/all", function(req, res){
-    db.scrapedData.find({}, function(err, data){
-      if(err) throw err;
-      else{
-        res.json(data);
-      }
+app.get("/all", function (req, res) {
+    db.scrapedData.find({}, function (err, data) {
+        if (err) throw err;
+        else {
+            res.json(data);
+        }
     })
-  })
+})
 
 //   To insert scrapped data to collection
-app.get("/scrape", function(req, res){
+app.get("/scrape", function (req, res) {
 
     // To call the function of all pages in website
     // for(var i=1; i<=117; i++){
     createRequest(1);
     // }
 
-    function createRequest(num){
+    function createRequest(num) {
         var url;
-        if(num > 1)
-        url = "https://www.dictionaryofobscuresorrows.com/page/" + num; 
+        if (num > 1)
+            url = "https://www.dictionaryofobscuresorrows.com/page/" + num;
         else
-        url = "https://www.dictionaryofobscuresorrows.com/";
+            url = "https://www.dictionaryofobscuresorrows.com/";
         console.log(url);
 
-    axios.get(url).then(function(response){
-      var $ = cheerio.load(response.data);
-      
-      $("div.post.text").each(function(i, element){
-          var title = $(element).find("h2.title").find("a").text();
-          var link = $(element).find("h2.title").find("a").attr("href");
-          var content = $(element).find("div.content").find("p").text();
+        axios.get(url).then(function (response) {
+            var $ = cheerio.load(response.data);
 
-          var result = {
-              title: title,
-              link: link,
-              content: content
-          }
+            $("div.post.text").each(function (i, element) {
+                var title = $(element).find("h2.title").find("a").text();
+                var link = $(element).find("h2.title").find("a").attr("href");
+                var content = $(element).find("div.content").find("p").text();
 
-        //   Create a new dictionary collection using scrapped data
-        db.Dictionary.create(result).then(function(dbDictionary){
-            console.log(dbDictionary);
-        }).catch(function(err){
-            console.log(err);
+                var result = {
+                    title: title,
+                    link: link,
+                    content: content
+                }
+
+                //   Create a new dictionary collection using scrapped data
+                db.Dictionary.create(result).then(function (dbDictionary) {
+                    console.log(dbDictionary);
+                }).catch(function (err) {
+                    console.log(err);
+                })
+
+            })
+            res.send("Scraped!");
         })
-  
-    })
-        res.send("Scraped!");
-    })
-}
+    }
 })
 
 
 //   Server listening on port 8080
-app.listen(PORT, function(){
+app.listen(PORT, function () {
     console.log("Server is listening to PORT 8080");
 })

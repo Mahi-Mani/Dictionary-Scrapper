@@ -22,11 +22,25 @@ $(document).ready(function(){
         addNote(id);
     })
 
-    // Function to add a note
+    // Function to add a note post notes to collections
     function addNote(id){
         $("#" + id).on("click", function(event){
             event.preventDefault();
             console.log("add note clicked with id : " + id);
+            var name = $("input[data-value="+id+"]").val();
+            var body = $("textarea[data-text="+id+"]").val();
+            console.log(name);
+            console.log(body);
+
+            $.ajax("/dictionary/" + id,{
+                type: "POST",
+                data: {
+                    name: name,
+                    body: body
+                }
+            }).then(function(data){
+                console.log(data);
+            })
         })
     }
 
