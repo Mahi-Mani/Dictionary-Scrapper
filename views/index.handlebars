@@ -26,39 +26,41 @@
                 <h5 class="card-title text-wrap">{{title}}</h5>
                 <p class="card-text text-wrap">{{link}}</p>
                 <p class="card-text text-wrap">{{content}}</p>
-                <button type="button" class="btn btn-primary" id="addNote-btn"data-id={{_id}}>Click to add a Note</button>
-                <button type="button" class="btn btn-primary" id="viewNote-btn"data-id={{_id}}>View note</button>
+                <button type="button" class="btn btn-primary" id="addNote-btn" data-id={{_id}}>Click to add a
+                    Note</button>
+                <button type="button" class="btn btn-primary" id="viewNote-btn" data-id={{_id}}>View note</button>
             </div>
         </div>
-         
-            <div class="modal fade" id={{_id}} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+
+        <div class="modal fade" id={{_id}} tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
             aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        {{#if title}}
-                        <h5 class="modal-title" id="exampleModalLabel"+{{_id}}>{{title}}</h5>
-                        {{/if}}
-                        {{#else}}
-                        <h5 class="modal-title" id="exampleModalLabel">Leave Your Note Here!</h5>
                         
-                        {{/else}}
+                        <h5 class="modal-title" id="name" +{{_id}}>{{title}}</h5>
+                        
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <input class="form-control" type="text" placeholder="Enter your name"data-value={{_id}}><br>
+                        {{#if name}}
+                        <input class="form-control" type="text" placeholder="Enter your name" data-value={{_id}}><br>
+                        {{else}}
+                        <input class="form-control" type="text" placeholder="Enter your name" data-value={{_id}}><br>
+                        {{/if}}
                         <textarea class="form-control note text-dark" rows="2" data-text={{_id}}></textarea>
-                        <h5 class="modal-title" id="exampleModalLabel1"+{{_id}}>Leave Your Note Here!</h5>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal"id={{_id}} >Add Note</button>
+                        <h5 class="modal-title" id="note" +{{_id}}>Leave Your Note Here!</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id={{_id}}>Add
+                            Note</button>
                     </div>
                 </div>
             </div>
         </div>
-       {{/each}}
+        {{/each}}
         <div class="col-md-2"></div>
 
     </div>

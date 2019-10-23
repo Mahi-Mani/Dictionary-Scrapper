@@ -60,8 +60,9 @@ $(document).ready(function(){
     }).then(function(data){
         console.log(data);
         $("#" + id).modal("toggle");
-        $("#exampleModalLabel"+id).text(data.note.name);
-        $("#exampleModalLabel1"+id).text(data.note.body);
+        // $("#exampleModalLabel"+id).text(data.note.name);
+        $("input[data-value="+id+"]").val(data.note.name);
+        $("textarea[data-text="+id+"]").val(data.note.body);
     })
 
 }
