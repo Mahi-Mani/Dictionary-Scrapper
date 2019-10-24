@@ -61,9 +61,9 @@ app.get("/dictionary/:id", function(req, res){
 })
 
 // Main route (simple Hello World Message)
-// app.get("/", function(req, res) {
-//     res.send("Hello world");
-//   });
+app.get("/", function(req, res) {
+    res.sendFile(path.join(__dirname, "index.html"));
+  });
 
 // To delete value from collection
 app.put("/dictionary/del/:id", function(req, res){
