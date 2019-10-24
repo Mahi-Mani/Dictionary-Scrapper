@@ -15,14 +15,14 @@ NewScrapper is all about scrapping a website. This application works on scrappin
 - Bootstrap : For application styling
 - Javascript : used to provide interactive effects
 - Handlebars : To dynamically generate HTML page
-- Mongoose :
+- Mongoose : Object Data Modeling library for MongoDB and Node.js
 - Node : used to run javascript file outside the browser. Supports command line user input. Node is useful is different ways. As
 far as this code is concerned, utilised cheerio, axios to scrap website
 
 ## Application Functioning
 Type `node server.js` from command line. Funtioning of the application is shown below
 
-![Site](gif/VocabularyBuilder1.gif)
+![Site](DictionaryScrapper.gif)
 
 On run, this application provides you with two options either to view all scraped data or to scrap data. If you want to see latest available from website then go ahead to click on scrap. This will scrap all latest updates from website. Then user can view all scrapped data by clicking on view button. Upon viewing all words, user can customize their words by adding notes to specific words. Also, they can either delete or save a particular word. At any point of time, user can edit their notes and can view all saved words.
 
