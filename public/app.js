@@ -112,6 +112,26 @@ $("#del-all-btn").on("click", function(event){
         })
     }
 
+    $("#save-all-btn").on("click", function(event){
+        event.preventDefault();
+        console.log("Inside save all button");
+        // Calling scrape api when scrape button is clicked
+        $.ajax("/saved", {
+            type: "GET"
+        }).then(function(data){
+            console.log(data);
+            $("#savedItems").empty();
+            // Code to view all saved in a modal
+            for(var i=0; i<data.length; i++){
+                var tr = $("<tr>");
+                tr.append("<td>" + i+1 + "</td>");
+                tr.append("<td>" + data[i].title + "</td>");
+                tr.append("<td>" + data[i].link + "</td>");
+                tr.append("<td>" + data[i].content + "</td>");
+                $("#savedItems").append(tr);
+            }
+        })
+    })
 
     // To view all scraped values
     // $("#view-btn").on("click", function(event){

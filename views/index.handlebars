@@ -10,7 +10,7 @@
             <p>Wooo HOOOOO!</p>
             <a class="btn btn-danger btn-lg" role="button" id="scrape-btn">Scrape</a>
             <a class="btn btn-success btn-lg" role="button" id="view-btn" href="/dictionary">View</a>
-            {{!-- <button type="button" class="btn btn-danger" id="del-all-btn">Delete All</button> --}}
+            <button type="button" class="btn btn-warning" id="save-all-btn">Saved</button>
         </div>
     </div>
     <div class="col-md-2"></div>
@@ -64,6 +64,20 @@
             </div>
         </div>
         {{/each}}
+
+        <table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Link</th>
+      <th scope="col">Content</th>
+    </tr>
+  </thead>
+  <tbody id="savedItems">
+
+  </tbody>
+</table>
         <div class="col-md-2"></div>
 
     </div>

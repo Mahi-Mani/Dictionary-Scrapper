@@ -98,6 +98,14 @@ app.get("/all", function (req, res) {
     })
 })
 
+// To get all saved data
+app.get("/saved", function (req, res) {
+    db.Dictionary.find({saved: true})
+    .then(function(dbDictionary){
+        res.json(dbDictionary);
+    })
+})
+
 //   To insert scrapped data to collection
 app.get("/scrape", function (req, res) {
 
