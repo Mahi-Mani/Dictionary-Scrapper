@@ -1,5 +1,6 @@
 // To ensure that our document is ready
 $(document).ready(function(){
+    $(".table").hide();
     // To scrape
     $("#scrape-btn").on("click", function(event){
         event.preventDefault();
@@ -63,6 +64,8 @@ $(document).ready(function(){
         // $("#exampleModalLabel"+id).text(data.note.name);
         $("input[data-value="+id+"]").val(data.note.name);
         $("textarea[data-text="+id+"]").val(data.note.body);
+        $("h5[data-note="+id+"]").text("");
+        $("button[data-note="+id+"]").text("Close");
     })
 
 }
@@ -90,7 +93,7 @@ $("#del-all-btn").on("click", function(event){
     }).then(function(data){
         console.log(data);
         // console.log("Delete");
-        // location.reload();
+        location.reload();
     })
 })
 
@@ -108,7 +111,7 @@ $("#del-all-btn").on("click", function(event){
         }).then(function(data){
             console.log(data);
             console.log("Saved");
-            // location.reload();
+            location.reload();
         })
     }
 
@@ -120,7 +123,9 @@ $("#del-all-btn").on("click", function(event){
             type: "GET"
         }).then(function(data){
             console.log(data);
+            $(".table").show();
             $("#savedItems").empty();
+            $("#allCard").hide();
             // Code to view all saved in a modal
             for(var i=0; i<data.length; i++){
                 var tr = $("<tr>");
@@ -128,21 +133,26 @@ $("#del-all-btn").on("click", function(event){
                 tr.append("<td>" + data[i].title + "</td>");
                 tr.append("<td>" + data[i].link + "</td>");
                 tr.append("<td>" + data[i].content + "</td>");
+                tr.append("<td>" + "<button class='btn btn-danger remove'type='button'data-id=" + data[i]._id + ">" + "Remove" + "</button>" + "</td>");
                 $("#savedItems").append(tr);
             }
         })
     })
 
-    // To view all scraped values
-    // $("#view-btn").on("click", function(event){
-    //     event.preventDefault();
-    //     console.log("Inside view button");
+    // On click of remove button
+    $(document).on("click", ".remove", function(event){
+        event.preventDefault();
+        console.log("Inside Remove button");
+        var id = $(this).data("id");
 
-    //     // API call to view all scraped details
-    //     $.ajax("/dictionary", {
-    //         type: "GET"
-    //     }).then(function(data){
-    //         console.log(data);
-    //     })
-    // })
+        // To remove saved details from table
+        $.ajax("/saved/del/" + id, {
+            type: "PUT"
+        }).then(function(data){
+            // console.log(data);
+            console.log("Removed");
+            location.reload();
+        })
+    })
+
 })

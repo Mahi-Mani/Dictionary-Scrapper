@@ -10,7 +10,7 @@
             <p>Wooo HOOOOO!</p>
             <a class="btn btn-danger btn-lg" role="button" id="scrape-btn">Scrape</a>
             <a class="btn btn-success btn-lg" role="button" id="view-btn" href="/dictionary">View</a>
-            <button type="button" class="btn btn-warning" id="save-all-btn">Saved</button>
+            <a class="btn btn-warning btn-lg" role="button" id="save-all-btn">Saved</a>
         </div>
     </div>
     <div class="col-md-2"></div>
@@ -22,7 +22,7 @@
     <div class="col-md-8">
         {{!-- Cards --}}
         {{#each result}}
-        <div class="card d-inline-flex flex-row bd-highlight mb-3 text-wrap">
+        <div class="card d-inline-flex flex-row bd-highlight mb-3 text-wrap" id="allCard">
             <div class="card-body">
                 <h5 class="card-title text-wrap">{{title}}</h5>
                 <p class="card-text text-wrap" style="word-wrap: break-word">{{link}}</p>
@@ -40,9 +40,9 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        
+
                         <h5 class="modal-title" id="name" +{{_id}}>{{title}}</h5>
-                        
+
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -51,14 +51,21 @@
                         {{#if name}}
                         <input class="form-control" type="text" placeholder="Enter your name" data-value={{_id}}><br>
                         {{else}}
-                        <input class="form-control" type="text" placeholder="Enter your name" data-value={{_id}}><br>
+                        <input class="form-control" type="text" placeholder="Enter your name"data-value={{_id}}><br>
                         {{/if}}
                         <textarea class="form-control note text-dark" rows="2" data-text={{_id}}></textarea>
                     </div>
                     <div class="modal-footer">
-                        <h5 class="modal-title" id="note" +{{_id}}>Leave Your Note Here!</h5>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" id={{_id}}>Add
+                        {{#if name}}
+                        <h5 class="modal-title" data-note={{_id}}>Leave Your Note Here!</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-note={{_id}}>Add
                             Note</button>
+                        {{else}}
+                        <h5 class="modal-title">Leave Your Note Here!</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Add
+                            Note</button>
+                        {{/if}}
+
                     </div>
                 </div>
             </div>
@@ -66,18 +73,18 @@
         {{/each}}
 
         <table class="table">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Title</th>
-      <th scope="col">Link</th>
-      <th scope="col">Content</th>
-    </tr>
-  </thead>
-  <tbody id="savedItems">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Link</th>
+                    <th scope="col">Content</th>
+                </tr>
+            </thead>
+            <tbody id="savedItems">
 
-  </tbody>
-</table>
+            </tbody>
+        </table>
         <div class="col-md-2"></div>
 
     </div>

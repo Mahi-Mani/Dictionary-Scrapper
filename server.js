@@ -71,6 +71,13 @@ app.put("/dictionary/del/:id", function(req, res){
     res.send("Deleted");
 })
 
+// To remove values from saved table
+app.put("/saved/del/:id", function(req, res){
+    db.Dictionary.findOneAndUpdate({_id: req.params.id}, {saved: false}).then(function(data){
+        res.send("Removed");
+    })
+})
+
 // To save
 app.put("/dictionary/save/:id", function(req, res){
     db.Dictionary.findOneAndUpdate({_id: req.params.id}, {saved: true}).then(function(data){
