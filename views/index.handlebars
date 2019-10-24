@@ -48,7 +48,7 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {{#if name}}
+                        {{#if note}}
                         <input class="form-control" type="text" placeholder="Enter your name" data-value={{_id}}><br>
                         {{else}}
                         <input class="form-control" type="text" placeholder="Enter your name"data-value={{_id}}><br>
@@ -56,10 +56,9 @@
                         <textarea class="form-control note text-dark" rows="2" data-text={{_id}}></textarea>
                     </div>
                     <div class="modal-footer">
-                        {{#if name}}
-                        <h5 class="modal-title" data-note={{_id}}>Leave Your Note Here!</h5>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-note={{_id}}>Add
-                            Note</button>
+                        {{#if note}}
+                        <h5 class="modal-title" data-note={{_id}}>Edit your note!</h5>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal" data-note={{_id}}>Edit</button>
                         {{else}}
                         <h5 class="modal-title">Leave Your Note Here!</h5>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Add

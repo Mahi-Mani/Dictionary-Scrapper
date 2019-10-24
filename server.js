@@ -119,9 +119,9 @@ app.get("/saved", function (req, res) {
 app.get("/scrape", function (req, res) {
 
     // To call the function of all pages in website
-    // for(var i=1; i<=117; i++){
-    createRequest(1);
-    // }
+    for(var i=1; i<=117; i++){
+    createRequest(i);
+    }
 
     function createRequest(num) {
         var url;
