@@ -17,7 +17,9 @@ app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
 
 // Connect to the Mongo DB
-mongoose.connect("mongodb://localhost/dictionaryAPI", { useNewUrlParser: true });
+var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dictionaryAPI";
+mongoose.connect(MONGODB_URI);
+// mongoose.connect("mongodb://localhost/dictionaryAPI", { useNewUrlParser: true });
 
 // Main route to retrive all from Dictionary
 app.get("/dictionary", function (req, res) {
