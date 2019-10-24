@@ -1,24 +1,24 @@
 // Require dependencies
 var express = require("express");
+var app = express();
+var exphbs = require("express-handlebars");
 var mongojs = require("mongojs");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
 var PORT = 8080;
-var exphbs = require("express-handlebars");
-var app = express();
-app.use(express.static("public"));
-var db = require("./models");
 
+app.use(express.static("public"));
 // Parse request body as JSON
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.engine("handlebars", exphbs({ defaultLayout: "main" }));
 app.set("view engine", "handlebars");
+var db = require("./models");
 
 // Connect to the Mongo DB
 var MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/dictionaryAPI";
-mongoose.connect(MONGODB_URI);
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 // mongoose.connect("mongodb://localhost/dictionaryAPI", { useNewUrlParser: true });
 
 // Main route to retrive all from Dictionary
