@@ -6,7 +6,7 @@ var mongojs = require("mongojs");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
-var PORT = 8080;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static("public"));
 // Parse request body as JSON
