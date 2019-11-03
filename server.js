@@ -99,7 +99,7 @@ app.put("/dictionary/del/all", function(req, res){
 
 //   Get all scraped data
 app.get("/all", function (req, res) {
-    db.scrapedData.find({}, function (err, data) {
+    db.Dictionary.find({}, function (err, data) {
         if (err) throw err;
         else {
             res.json(data);
