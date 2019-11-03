@@ -24,7 +24,7 @@ Type `node server.js` from command line. Funtioning of the application is shown 
 
 ![Site](DictionaryScrapper.gif)
 
-On run, this application provides you with two options either to view all scraped data or to scrap data. If you want to see latest available from website then go ahead to click on scrap. This will scrap all latest updates from website. Then user can view all scrapped data by clicking on view button. Upon viewing all words, user can customize their words by adding notes to specific words. Also, they can either delete or save a particular word. At any point of time, user can edit their notes and can view all saved words.
+On run, this application provides you with two options either to view all scraped data or to scrap data. If you want to see latest available from website then go ahead to click on scrap. This will scrap all latest updates from website. Then user can view all scrapped data by clicking on view button. Upon viewing all words, user can customize their words by adding notes to specific words. Also, they can either delete or save a particular word. At any point of time, user can edit their notes and can view all saved words. `/all` route generates API data that was created in the back end
 
 ## Code Snippet
 *index.handlebars*
