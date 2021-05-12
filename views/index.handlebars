@@ -10,7 +10,7 @@
             <p>Wooo HOOOOO!</p>
             <a class="btn btn-danger btn-lg" role="button" id="scrape-btn">Scrape</a>
             <a class="btn btn-success btn-lg" role="button" id="view-btn" href="/dictionary">View</a>
-            <a class="btn btn-warning btn-lg" role="button" id="save-all-btn">Saved</a>
+            <a class="btn btn-warning btn-lg" role="button" id="save-all-btn" href="/saved">Saved</a>
         </div>
     </div>
     <div class="col-md-2"></div>
@@ -31,7 +31,6 @@
                     Note</button>
                 <button type="button" class="btn btn-primary" id="viewNote-btn" data-id={{_id}}>View note</button>
                 <button type="button" class="btn btn-warning" id="saveNote-btn" data-id={{_id}}>Save</button>
-                <button type="button" class="btn btn-danger" id="del-btn" data-id={{_id}}>Delete</button>
             </div>
         </div>
 
@@ -70,20 +69,6 @@
             </div>
         </div>
         {{/each}}
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Title</th>
-                    <th scope="col">Link</th>
-                    <th scope="col">Content</th>
-                </tr>
-            </thead>
-            <tbody id="savedItems">
-
-            </tbody>
-        </table>
         <div class="col-md-2"></div>
 
     </div>

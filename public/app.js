@@ -1,6 +1,6 @@
 // To ensure that our document is ready
 $(document).ready(function () {
-    $(".table").hide();
+    // $(".table").hide();
     // To scrape
     $("#scrape-btn").on("click", function (event) {
         event.preventDefault();
@@ -114,29 +114,29 @@ $(document).ready(function () {
         })
     }
 
-    $("#save-all-btn").on("click", function (event) {
-        event.preventDefault();
-        console.log("Inside save all button");
-        // Calling scrape api when scrape button is clicked
-        $.ajax("/saved", {
-            type: "GET"
-        }).then(function (data) {
-            console.log(data);
-            $(".table").show();
-            $("#savedItems").empty();
-            $("#allCard").hide();
-            // Code to view all saved in a modal
-            for (var i = 0; i < data.length; i++) {
-                var tr = $("<tr>");
-                tr.append("<td>" + i + 1 + "</td>");
-                tr.append("<td>" + data[i].title + "</td>");
-                tr.append("<td>" + data[i].link + "</td>");
-                tr.append("<td>" + data[i].content + "</td>");
-                tr.append("<td>" + "<button class='btn btn-danger remove'type='button'data-id=" + data[i]._id + ">" + "Remove" + "</button>" + "</td>");
-                $("#savedItems").append(tr);
-            }
-        })
-    })
+    // $("#save-all-btn").on("click", function (event) {
+    //     event.preventDefault();
+    //     console.log("Inside save all button");
+    //     // Calling scrape api when scrape button is clicked
+    //     $.ajax("/saved", {
+    //         type: "GET"
+    //     }).then(function (data) {
+    //         console.log(data);
+    //         $(".table").show();
+    //         $("#savedItems").empty();
+    //         $("#allCard").hide();
+    //         // Code to view all saved in a modal
+    //         for (var i = 0; i < data.length; i++) {
+    //             var tr = $("<tr>");
+    //             tr.append("<td>" + i + 1 + "</td>");
+    //             tr.append("<td>" + data[i].title + "</td>");
+    //             tr.append("<td>" + data[i].link + "</td>");
+    //             tr.append("<td>" + data[i].content + "</td>");
+    //             tr.append("<td>" + "<button class='btn btn-danger remove'type='button'data-id=" + data[i]._id + ">" + "Remove" + "</button>" + "</td>");
+    //             $("#savedItems").append(tr);
+    //         }
+    //     })
+    // })
 
     // On click of remove button
     $(document).on("click", ".remove", function (event) {

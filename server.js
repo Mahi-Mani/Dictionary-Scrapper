@@ -2,7 +2,6 @@
 var express = require("express");
 var app = express();
 var exphbs = require("express-handlebars");
-var mongojs = require("mongojs");
 var axios = require("axios");
 var cheerio = require("cheerio");
 var mongoose = require("mongoose");
@@ -23,14 +22,14 @@ mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
 // Main route to retrive all from Dictionary
 app.get("/dictionary", function (req, res) {
-  db.Dictionary.find({})
+  db.Dictionary.find({}).lean()
     .then(function (dbDictionary) {
       // res.render("index", dbDictionary);
       var obj = {
         result: dbDictionary
       }
       // res.json(obj);
-      console.log(obj);
+      // console.log(obj);
       res.render("index", obj);
     })
     .catch(function (err) {
@@ -109,9 +108,13 @@ app.get("/all", function (req, res) {
 
 // To get all saved data
 app.get("/saved", function (req, res) {
-  db.Dictionary.find({ saved: true })
+  db.Dictionary.find({ saved: true }).lean()
     .then(function (dbDictionary) {
-      res.json(dbDictionary);
+      // res.json(dbDictionary);
+      var obj = {
+        result: dbDictionary
+      }
+      res.render("saved", obj);
     })
 })
 
@@ -129,7 +132,6 @@ app.get("/scrape", function (req, res) {
       url = "https://www.dictionaryofobscuresorrows.com/page/" + num;
     else
       url = "https://www.dictionaryofobscuresorrows.com/";
-    console.log(url);
 
     axios.get(url).then(function (response) {
       var $ = cheerio.load(response.data);
@@ -144,25 +146,26 @@ app.get("/scrape", function (req, res) {
           link: link,
           content: content
         }
+        // console.log(result);
 
         //   Create a new dictionary collection using scrapped data
-        db.Dictionary.findOne({
-          title: title
-        }, function (err, existingTitle) {
-          if (!(existingTitle)) {
-            db.Dictionary.create(result).then(function (dbDictionary) {
-              console.log(dbDictionary);
-            }).catch(function (err) {
-              console.log(err);
-            })
-          }
-          else {
-            console.log("Already exists");
-          }
-        })
-
-
+        if (title && content && title) {
+          db.Dictionary.findOne({
+            title: title
+          }, function (err, existingTitle) {
+            if (!(existingTitle)) {
+              db.Dictionary.create(result).then(function (dbDictionary) {
+              }).catch(function (err) {
+                console.log(err);
+              })
+            }
+            else {
+              console.log("Already exists");
+            }
+          })
+        }
       })
+
       res.send("Scraped!");
     }).catch(err => {
       console.log(err);
